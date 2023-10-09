@@ -49,9 +49,9 @@ class R_MAPPO():
 
         #TODO: Calculate the error using mse_loss (line 5)
         #Hint: If the agent is inactive, the corresponding value loss in the tensor should be 0, and the mean value function loss should take this into account.
-        print('value_pred',values.shape)
-        print('return_batch',return_batch.shape)
-        print('active_masks_batch',active_masks_batch.shape)
+        # print('value_pred',values.shape)
+        # print('return_batch',return_batch.shape)
+        # print('active_masks_batch',active_masks_batch.shape)
 
         value_loss = ((values - return_batch)**2 * active_masks_batch).sum() / active_masks_batch.sum()
 
@@ -76,18 +76,18 @@ class R_MAPPO():
         _, return_batch, masks_batch, active_masks_batch, old_action_log_probs_batch, \
         adv_targ, available_actions_batch, old_logits_batch = sample
 
-        print('share_obs_batch:',share_obs_batch.shape)
-        print('obs_batch:',obs_batch.shape)
-        print('rnn_states_batch',rnn_states_batch.shape)
-        print('rnn_states_critic_batch:',rnn_states_critic_batch.shape)
-        print('actions_batch',actions_batch.shape)
-        print('return_batch',return_batch.shape)
-        print('masks_batch',masks_batch.shape)
-        print('active_masks_batch',active_masks_batch.shape)
-        print('old_action_log_probs_batch',old_action_log_probs_batch.shape)
-        print('adv_targ',adv_targ.shape)
-        print('available_actions_batch',available_actions_batch.shape)
-        print('old_logits_batch',old_logits_batch.shape)
+        # print('share_obs_batch:',share_obs_batch.shape)
+        # print('obs_batch:',obs_batch.shape)
+        # print('rnn_states_batch',rnn_states_batch.shape)
+        # print('rnn_states_critic_batch:',rnn_states_critic_batch.shape)
+        # print('actions_batch',actions_batch.shape)
+        # print('return_batch',return_batch.shape)
+        # print('masks_batch',masks_batch.shape)
+        # print('active_masks_batch',active_masks_batch.shape)
+        # print('old_action_log_probs_batch',old_action_log_probs_batch.shape)
+        # print('adv_targ',adv_targ.shape)
+        # print('available_actions_batch',available_actions_batch.shape)
+        # print('old_logits_batch',old_logits_batch.shape)
         # share_obs_batch: (200, 118)
         # obs_batch: (200, 108)
         # rnn_states_batch (2, 1, 512)
