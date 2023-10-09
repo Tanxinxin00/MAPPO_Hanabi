@@ -72,6 +72,19 @@ class R_MAPPO():
         _, return_batch, masks_batch, active_masks_batch, old_action_log_probs_batch, \
         adv_targ, available_actions_batch, old_logits_batch = sample
 
+        print('share_obs_batch:',share_obs_batch.shape)
+        print('obs_batch:',obs_batch.shape)
+        print('rnn_states_batch',rnn_states_batch.shape)
+        print('rnn_states_critic_batch:',rnn_states_critic_batch.shape)
+        print('actions_batch',actions_batch.shape)
+        print('return_batch',return_batch.shape)
+        print('masks_batch',masks_batch.shape)
+        print('active_masks_batch',active_masks_batch.shape)
+        print('old_action_log_probs_batch',old_action_log_probs_batch.shape)
+        print('adv_targ',adv_targ.shape)
+        print('available_actions_batch',available_actions_batch.shape)
+        print('old_logits_batch',old_logits_batch.shape)
+
 
         old_logits_batch = check(old_logits_batch).to(**self.tpdv)
         old_action_log_probs_batch = check(old_action_log_probs_batch).to(**self.tpdv)
@@ -94,12 +107,14 @@ class R_MAPPO():
         #                                                                       masks_batch, 
         #                                                                       available_actions_batch,
         #                                                                       active_masks_batch)
-        action_log_probs, dist_entropy, pi, logits = self.policy.evaluate_actions(share_obs_batch, 
-                                                                rnn_states_batch,
-                                                                actions_batch,
-                                                                masks_batch,
-                                                                available_actions_batch,
-                                                                active_masks_batch)
+        value_pred, action_log_probs, dist_entropy, pi, logits = self.policy.evaluate_actions(share_obs_batch,
+                                                                              obs_batch, 
+                                                                              rnn_states_batch, 
+                                                                              rnn_states_critic_batch, 
+                                                                              actions_batch, 
+                                                                              masks_batch, 
+                                                                              available_actions_batch,
+                                                                              active_masks_batch)
         imp_weights = torch.exp(action_log_probs - old_action_log_probs_batch)
 
         if(self.use_KL_pen):
@@ -139,7 +154,7 @@ class R_MAPPO():
         
         
         # TODO: Update the critic network using stochastic gradient descent
-        value_loss = self.cal_value_loss(values, return_batch, active_masks_batch)
+        value_loss = self.cal_value_loss(value_pred, return_batch, active_masks_batch)
 
 
        
