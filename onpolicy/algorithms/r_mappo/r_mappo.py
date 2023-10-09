@@ -94,6 +94,12 @@ class R_MAPPO():
                                                                               masks_batch, 
                                                                               available_actions_batch,
                                                                               active_masks_batch)
+        action_log_probs, dist_entropy, pi, logits = self.actor.evaluate_actions(share_obs_batch, 
+                                                                rnn_states_batch,
+                                                                actions_batch,
+                                                                masks_batch,
+                                                                available_actions_batch,
+                                                                active_masks_batch)
         imp_weights = torch.exp(action_log_probs - old_action_log_probs_batch)
 
         if(self.use_KL_pen):
