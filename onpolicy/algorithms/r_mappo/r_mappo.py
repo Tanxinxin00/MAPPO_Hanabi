@@ -50,7 +50,7 @@ class R_MAPPO():
         #TODO: Calculate the error using mse_loss (line 5)
         #Hint: If the agent is inactive, the corresponding value loss in the tensor should be 0, and the mean value function loss should take this into account.
 
-        value_loss = np.sum( (values - return_batch)**2) * active_masks_batch / np.sum(active_masks_batch)
+        value_loss = np.sum( (values - return_batch)**2 * active_masks_batch) / np.sum(active_masks_batch)
 
         return value_loss
 
@@ -84,7 +84,18 @@ class R_MAPPO():
         print('adv_targ',adv_targ.shape)
         print('available_actions_batch',available_actions_batch.shape)
         print('old_logits_batch',old_logits_batch.shape)
-
+        # share_obs_batch: (200, 118)
+        # obs_batch: (200, 108)
+        # rnn_states_batch (2, 1, 512)
+        # rnn_states_critic_batch: (2, 1, 512)
+        # actions_batch (200, 1)
+        # return_batch (200, 1)
+        # masks_batch (200, 1)
+        # active_masks_batch (200, 1)
+        # old_action_log_probs_batch (200, 1)
+        # adv_targ (200, 1)
+        # available_actions_batch (200, 10)
+        # old_logits_batch (200, 10)
 
         old_logits_batch = check(old_logits_batch).to(**self.tpdv)
         old_action_log_probs_batch = check(old_action_log_probs_batch).to(**self.tpdv)
