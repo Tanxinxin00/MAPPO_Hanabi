@@ -52,8 +52,10 @@ class R_MAPPO():
         print('value_pred',values.shape)
         print('return_batch',return_batch.shape)
         print('active_masks_batch',active_masks_batch.shape)
-
+        print((values - return_batch)**2 * active_masks_batch.sum())
+        print(active_masks_batch.sum())
         value_loss = (values - return_batch)**2 * active_masks_batch.sum() / active_masks_batch.sum()
+
 
         return value_loss
 
