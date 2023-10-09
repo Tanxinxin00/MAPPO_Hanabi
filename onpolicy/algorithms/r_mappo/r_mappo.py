@@ -94,7 +94,7 @@ class R_MAPPO():
         #                                                                       masks_batch, 
         #                                                                       available_actions_batch,
         #                                                                       active_masks_batch)
-        action_log_probs, dist_entropy, pi, logits = self.actor.evaluate_actions(share_obs_batch, 
+        action_log_probs, dist_entropy, pi, logits = self.policy.evaluate_actions(share_obs_batch, 
                                                                 rnn_states_batch,
                                                                 actions_batch,
                                                                 masks_batch,
