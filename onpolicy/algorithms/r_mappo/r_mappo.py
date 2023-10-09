@@ -86,14 +86,14 @@ class R_MAPPO():
              in rMAPPOPolicy.py on how to calculate log_prob_new. You will also notice that the function returns value function predictions and the policy distribution, both of which will 
              be required to complete the ppo_update() function.
         '''
-        values, action_log_probs, dist_entropy = self.policy.evaluate_actions(share_obs_batch,
-                                                                              obs_batch, 
-                                                                              rnn_states_batch, 
-                                                                              rnn_states_critic_batch, 
-                                                                              actions_batch, 
-                                                                              masks_batch, 
-                                                                              available_actions_batch,
-                                                                              active_masks_batch)
+        # values, action_log_probs, dist_entropy = self.policy.evaluate_actions(share_obs_batch,
+        #                                                                       obs_batch, 
+        #                                                                       rnn_states_batch, 
+        #                                                                       rnn_states_critic_batch, 
+        #                                                                       actions_batch, 
+        #                                                                       masks_batch, 
+        #                                                                       available_actions_batch,
+        #                                                                       active_masks_batch)
         action_log_probs, dist_entropy, pi, logits = self.actor.evaluate_actions(share_obs_batch, 
                                                                 rnn_states_batch,
                                                                 actions_batch,
